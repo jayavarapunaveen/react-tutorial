@@ -10,7 +10,7 @@ import SignIn from '../Signin/Singin';
 // In what order life cycle hooks are called and when to call them?
 
 // state and props in class based component
-class App extends React.Component {
+class App extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -37,16 +37,6 @@ class App extends React.Component {
     console.log('comoonent will update')
   }
 
-  shouldComponentUpdate(prevState){
-    console.log(prevState);
-    // compare
-    return true;
-  }
-
-  componentWillUpdate(){
-    console.log('comoonent did update')
-  }
-
   componentWillUnmount(){
     console.log('jus before component dies');
   }
@@ -55,6 +45,7 @@ class App extends React.Component {
   // re rendering
   updateOwner(name) {
     console.log(name);
+    this.props.addSize(1);
     this.setState({ownwerName:name});
   }
 
@@ -73,13 +64,5 @@ class App extends React.Component {
 }
 
 
-
-// function App(props) {
-//   return (
-//     <div className="App">
-//      Hello {props.personName}
-//     </div>
-//   );
-// }
 
 export default App;
