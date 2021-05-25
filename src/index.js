@@ -7,15 +7,13 @@ import Header from './components/Header/header.component';
 import { Provider } from "react-redux";
 import store from './redux/store'
 
-
 ReactDOM.render(
   <BrowserRouter history={history}>
     <Provider store={store}>
       <Header />
       <Routes />
     </Provider>
-  </BrowserRouter>
-  ,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
