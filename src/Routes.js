@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import App from './components/App/App';
-import SignIn from './components/Signin/Singin'
-import Demo from './components/HOCDEMO/Demo';
+import ProductList from './components/ProductList/ProductList';
 
 function PageNotFound(props) {
   return (
@@ -16,9 +14,8 @@ function PageNotFound(props) {
 
 const Routes = () => (
   <Switch>
-    <Route path="/signin" component={SignIn} />
-    <Route path="/demo" component={Demo} />
-    <Route path="/" exact component={App} />
+
+    <Route path="/" exact component={ProductList} />
     <Route path="*" component={PageNotFound} />
   </Switch>
 );
