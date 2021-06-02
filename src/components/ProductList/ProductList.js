@@ -22,16 +22,21 @@ class ProductList extends React.Component {
 
     render() {
         const { products } = this.state
-        return (<h1>
-            {products.map(eachProduct => {
-                return (<ProductCard {...eachProduct}></ProductCard>);
+        return (
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap"
+            }}>
+                {products.map(eachProduct => {
+                    return (<ProductCard {...eachProduct} key={eachProduct.id}></ProductCard>);
 
-            })}
+                })}
+            </div>
 
 
 
-
-        </h1>)
+        )
     }
 }
 
