@@ -9,6 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../../redux/actions/cartaction';
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
@@ -30,7 +32,7 @@ const useStyles = makeStyles({
 });
 function ProductCard(props) {
     const classes = useStyles();
-
+    const dispatch = useDispatch();
     return (
         <Card className={classes.root}>
             <CardActionArea>
@@ -53,7 +55,7 @@ function ProductCard(props) {
                 <Button variant="contained" color="primary">
                     <Link to={`/product/${props.id}`}>View Product</Link>
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={() => dispatch(addItemToCart(props))}>
                     Add To Cart
             </Button>
             </CardActions>

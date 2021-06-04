@@ -73,7 +73,7 @@ class SignIn extends React.Component {
     return (
       <div>
 
-        <h1>Hello Sign {this.props.displayCount} </h1>
+        <h1>Products count {this.props.productsCount} </h1>
         <input type="text" name="firstName" value={this.state.signInInfo.firstName} onChange={this.handleChange} />
         {this.state.signInInfo.errors.firstName ? <span>firstName Is invalid</span> : null}
         <input type="text" name="lastName" value={this.state.signInInfo.lastName} onChange={this.handleChange} />
@@ -82,8 +82,9 @@ class SignIn extends React.Component {
     );
   }
 }
-const mapStoreToProps = ({ test1 }) => ({
-  displayCount: test1.displayCount
+const mapStoreToProps = ({ test1 ,cart}) => ({
+  displayCount: test1.displayCount,
+  productsCount: cart.cartItems.length
 })
 function MapToProps(dispatch) {
   return ({ updateCount: (countToUpdate) => dispatch(updateCount(countToUpdate)) })
