@@ -1,5 +1,8 @@
 import React from 'react';
 import './header.component.css';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 
 class Header extends React.Component {
 
@@ -12,12 +15,17 @@ class Header extends React.Component {
             <div className="app-title">
                 E-commerce App
             </div>
-            <div className="app-options">
-                Cart
+            <div className="app-options" >
+                <Link to={`/cartlist`}>
+                    Cart {this.props.cartCount ? this.props.cartCount : null}
+                </Link>
             </div>
         </div>);
     }
 }
+const mapStoreToProps = ({ cart }) => ({
+    cartCount: cart.cartItems.length
+})
 
-
-export default Header;
+// export default Header;
+export default connect(mapStoreToProps, null)(Header);

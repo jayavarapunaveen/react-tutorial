@@ -55,9 +55,10 @@ function ProductCard(props) {
                 <Button variant="contained" color="primary">
                     <Link to={`/product/${props.id}`}>View Product</Link>
                 </Button>
-                <Button variant="contained" color="secondary" onClick={() => dispatch(addItemToCart(props))}>
+                <Button variant="contained" color="secondary" onClick={() =>
+                    dispatch(addItemToCart(props))}>
                     Add To Cart
-            </Button>
+</Button>
             </CardActions>
         </Card>
     );
