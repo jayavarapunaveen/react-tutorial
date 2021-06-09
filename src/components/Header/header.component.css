@@ -1,11 +1,11 @@
-.header {
-    background: #1abc9c;
-    color: white;
-    font-size: 30px;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
+.app-header {
+  background: #1abc9c;
+  color: white;
+  font-size: 24px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
   }
 
  .app-title{
@@ -13,5 +13,6 @@
  }
 
  .app-options{
+   cursor: pointer;
 
  }

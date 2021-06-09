@@ -6,6 +6,8 @@ import history from './history';
 import Header from './components/Header/header.component';
 import { Provider } from "react-redux";
 import store from './redux/store'
+import './index.css';
+
 
 ReactDOM.render(
   <BrowserRouter history={history}>

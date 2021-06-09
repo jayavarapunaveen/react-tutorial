@@ -10,23 +10,48 @@ const CartReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case ADD_TO_CART:
-            console.log(state.cartItems)
-            const tempArray = [...state.cartItems]
-            console.log(tempArray)
+            console.log(state.cartItems, action.payload)
+            let product = {};
+            product = { ...action.payload };
+            let tempArray = [...state.cartItems]
+            let index = tempArray.findIndex(eachProduct => eachProduct.id == product.id);
+            if (index === -1) {
+                product['count'] = 1;
+                product['total'] = product.price;;
+                tempArray = tempArray.concat(product)
+                
+            } else {
+                console.log('...',state.totalPrice)
+                product = { ...tempArray[index] };
+                product['count'] = product['count'] + 1;
+                product['total'] = ((product.count * product.price));
+                tempArray[index] = { ...product };
+
+                
+            }
+            console.log(JSON.stringify(tempArray))
             return {
                 ...state,
-                cartItems: tempArray.concat(action.payload),
-                totalPrice: state.totalPrice + action.payload.price
+                cartItems: tempArray,
+                totalPrice: tempArray.reduce((currentSum,eachObj) =>((eachObj.total) + currentSum), 0)
             }
             break;
         case REMOVE_ITEM_FROM_CART:
             if (state.cartItems) {
                 const tempArray = [...state.cartItems];
                 let index = tempArray.findIndex(x => x.id == action.payload);
-                tempArray.splice(index, 1);
+                if (tempArray[index].count == 1) {
+                    tempArray.splice(index, 1);
+                } else {
+                    let product = { ...tempArray[index] };
+                    product['count'] = product['count'] - 1;
+                    product['total'] = ((product.count * product.price));
+                    tempArray[index] = { ...product };
+                }
                 return {
                     ...state,
-                    cartItems: [...tempArray]
+                    cartItems: [...tempArray],
+                    totalPrice: tempArray.reduce((currentSum,eachObj) =>((eachObj.total) + currentSum), 0)
                 }
             } else {
                 return { ...state }
