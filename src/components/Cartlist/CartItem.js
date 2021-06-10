@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItemToCart, removeItemFromCart } from '../../redux/actions/cartaction';
 
-export default function CartItem({ item, value = {} }) {
+export default function CartItem({ item }) {
   const dispatch = useDispatch();
   const { id, title, image, price, count, total } = item;
   return (
