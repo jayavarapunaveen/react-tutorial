@@ -2,7 +2,9 @@
 import React from 'react';
 import axios from 'axios';
 import ProductCard from '../ProductCard/ProductCard';
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { initProducts } from '../../redux/actions/productaction';
 class ProductList extends React.Component {
 
 
@@ -18,7 +20,8 @@ class ProductList extends React.Component {
         axios.get('https://fakestoreapi.com/products')
             .then(response => {
                 console.log(response)
-                this.setState({ products: response.data })
+                this.setState({ products: response.data });
+                this.props.initProducts(response.data || []);
             });
     }
 
@@ -30,7 +33,7 @@ class ProductList extends React.Component {
     }
 
     filterProducts = () => {
-        let tempProducts = this.state.products;
+        let tempProducts = [...this.props.products];
         tempProducts = tempProducts.filter(eachProduct => {
             return (eachProduct.price <= this.state.maxPrice)
         });
@@ -47,7 +50,7 @@ class ProductList extends React.Component {
             <div style={{
                 display: "flex",
                 flexDirection: "row",
-                marginTop:2
+                marginTop: 2
             }}>
                 <div style={{ width: "30%", border: "1px solid blue" }}>
                     Max Price:
@@ -73,4 +76,15 @@ class ProductList extends React.Component {
 }
 
 
-export default ProductList;
+
+const mapStoreToProps = ({ product }) => ({
+    products: product.allProducts
+})
+
+function mapPropsToDispatch(dispatch) {
+    return ({
+        initProducts: (products) => dispatch(initProducts(products))
+    })
+}
+
+export default withRouter(connect(mapStoreToProps, mapPropsToDispatch)(ProductList));
