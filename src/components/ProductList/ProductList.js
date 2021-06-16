@@ -13,7 +13,7 @@ class ProductList extends React.Component {
         this.state = {
             products: [],
             category: "",
-            maxPrice: null
+            maxPrice: ""
         }
     }
     componentDidMount() {

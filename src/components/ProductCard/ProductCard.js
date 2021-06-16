@@ -21,8 +21,10 @@ const useStyles = makeStyles({
 
     },
     media: {
-        height: 200,
-        width: 200
+        height: "250px",
+        padding: "20px",
+        background: "white",
+        margin: "auto"
     },
     titleHeight: {
         height: 50,
@@ -36,11 +38,10 @@ function ProductCard(props) {
     return (
         <Card className={classes.root}>
             <CardActionArea>
-                <CardMedia
-                    className={classes.media}
-                    image={props.image}
-                    title="Contemplative Reptile"
-                />
+                <div >
+                    <img className={classes.media}
+                        src={props.image} />
+                </div>
                 <CardContent>
                     <Typography className={classes.titleHeight} gutterBottom variant="h5" component="h4">
                         {props.title}
@@ -58,7 +59,7 @@ function ProductCard(props) {
                 <Button variant="contained" color="secondary" onClick={() =>
                     dispatch(addItemToCart(props))}>
                     Add To Cart
-</Button>
+                </Button>
             </CardActions>
         </Card>
     );
