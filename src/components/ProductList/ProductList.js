@@ -13,15 +13,33 @@ class ProductList extends React.Component {
         this.state = {
             products: [],
             category: "",
-            maxPrice: ""
+            maxPrice: "",
+            loading: false
+        }
+        window.onscroll = (event) => {
+            console.log('scrolled once', event.srcElement.documentElement.scrollTop);
+            console.log(document.getElementById('productList').offsetHeight)
+            if (window.innerHeight + event.srcElement.documentElement.scrollTop >= document.getElementById('productList').offsetHeight) {
+                if (!this.state.loading) {
+                    console.log('new products loaded')
+                    this.loadProducts();
+                }
+            }
         }
     }
     componentDidMount() {
+        this.loadProducts();
+    }
+    loadProducts = () => {
+        this.setState({ loading: true })
         axios.get('https://fakestoreapi.com/products')
             .then(response => {
                 console.log(response)
-                this.setState({ products: response.data });
-                this.props.initProducts(response.data || []);
+                this.setState({
+                    products: [...response.data, ...this.state.products],
+                    loading: false
+                });
+                this.props.initProducts([...response.data, ...this.props.products]);
             });
     }
 
@@ -54,17 +72,17 @@ class ProductList extends React.Component {
             }}>
                 <div style={{ width: "30%", border: "1px solid blue" }}>
                     Max Price:
-                <input type="text" name="maxPrice" value={this.state.maxPrice} onChange={this.handleChange} />
+                    <input type="text" name="maxPrice" value={this.state.maxPrice} onChange={this.handleChange} />
                     <button onClick={this.filterProducts}>Apply</button>
                 </div>
-                <div style={{
+                <div id="productList" style={{
                     display: "flex",
                     flexDirection: "row",
                     flexWrap: "wrap",
                     border: "1px solid green"
                 }}>
-                    {products.map(eachProduct => {
-                        return (<ProductCard {...eachProduct} key={eachProduct.id}></ProductCard>);
+                    {products.map((eachProduct, index) => {
+                        return (<ProductCard {...eachProduct} key={index}></ProductCard>);
 
                     })}
                 </div>
