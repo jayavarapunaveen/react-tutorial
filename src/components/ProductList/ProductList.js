@@ -12,24 +12,54 @@ class ProductList extends React.Component {
         super(props);
         this.state = {
             products: [],
+            tempProducts: [],
             category: "",
             maxPrice: "",
-            loading: false
+            loading: false,
+            maxProducts: 50,
+            recordsPerPage: 6,
+            currentPage: 1
         }
-        window.onscroll = (event) => {
-            console.log('scrolled once', event.srcElement.documentElement.scrollTop);
-            console.log(document.getElementById('productList').offsetHeight)
-            if (window.innerHeight + event.srcElement.documentElement.scrollTop >= document.getElementById('productList').offsetHeight) {
-                if (!this.state.loading) {
-                    console.log('new products loaded')
-                    this.loadProducts();
-                }
-            }
-        }
+        // window.onscroll = (event) => {
+        //     console.log('scrolled once', event.srcElement.documentElement.scrollTop);
+        //     console.log(document.getElementById('productList').offsetHeight);
+
+        //     if (window.innerHeight + event.srcElement.documentElement.scrollTop >= document.getElementById('productList').offsetHeight) {
+        //         if (!this.state.loading&&(this.state.products.length<this.state.maxProducts)) {
+        //             console.log('new products loaded')
+        //             this.loadProducts();
+        //         }
+        //     }
+        // }
     }
     componentDidMount() {
         this.loadProducts();
     }
+    calculatePages = () => {
+        let arrayLength = this.state.products.length;
+        let noOfPages = Math.ceil(arrayLength / this.state.recordsPerPage);
+        let list = []
+
+        for (let i = 1; i <= noOfPages; i++) {
+            list.push(<li key={'pagination' + i} onClick={
+                () => {
+                    this.setState({ currentPage: i }, this.tempProductsDisp)
+
+                }}>
+                {i}
+            </li>)
+        }
+
+        return list;
+    }
+    tempProductsDisp = () => {
+        const temp = JSON.parse(JSON.stringify(this.state.products));
+        this.setState({
+            tempProducts: temp.splice((this.state.currentPage - 1) * this.state.recordsPerPage, this.state.recordsPerPage)
+        })
+
+    }
+
     loadProducts = () => {
         this.setState({ loading: true })
         axios.get('https://fakestoreapi.com/products')
@@ -38,7 +68,7 @@ class ProductList extends React.Component {
                 this.setState({
                     products: [...response.data, ...this.state.products],
                     loading: false
-                });
+                }, this.tempProductsDisp);
                 this.props.initProducts([...response.data, ...this.props.products]);
             });
     }
@@ -63,7 +93,7 @@ class ProductList extends React.Component {
     }
 
     render() {
-        const { products } = this.state
+        const { tempProducts } = this.state
         return (
             <div style={{
                 display: "flex",
@@ -75,16 +105,25 @@ class ProductList extends React.Component {
                     <input type="text" name="maxPrice" value={this.state.maxPrice} onChange={this.handleChange} />
                     <button onClick={this.filterProducts}>Apply</button>
                 </div>
-                <div id="productList" style={{
+                <div style={{
                     display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
+                    flexDirection: "column",
                     border: "1px solid green"
                 }}>
-                    {products.map((eachProduct, index) => {
-                        return (<ProductCard {...eachProduct} key={index}></ProductCard>);
+                    <div id="productList" style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap"
+                    }}>
+                        {tempProducts.map((eachProduct, index) => {
+                            return (<ProductCard {...eachProduct} key={index}></ProductCard>);
 
-                    })}
+                        })}
+                    </div>
+                    <ul id="page-numbers">
+                        {this.calculatePages()}
+                    </ul>
+                    {/* {this.state.loading?"Loading....":null} */}
                 </div>
             </div >
 
