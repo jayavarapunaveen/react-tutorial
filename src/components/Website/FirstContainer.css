@@ -1,0 +1,14 @@
+.side-bar{
+    height: 100vh;
+    position: fixed;
+    top:10px;
+    right: 0;
+    z-index: 1;
+    width: 0;
+    background: blanchedalmond;
+    transition: 0.5s;
+}
+
+.show-side-bar{
+    width: 250px;
+}

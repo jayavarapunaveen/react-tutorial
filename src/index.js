@@ -12,7 +12,7 @@ import './index.css';
 ReactDOM.render(
   <BrowserRouter history={history}>
     <Provider store={store}>
-      <Header />
+      {/* <Header /> */}
       <Routes />
     </Provider>
   </BrowserRouter>,
