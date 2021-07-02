@@ -12,3 +12,19 @@
 .show-side-bar{
     width: 250px;
 }
+.dot-container{
+    position: absolute;
+    top: 80%;
+    left: 45%;
+   
+}
+
+.dot{
+    position: relative;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 15px;
+    height: 15px;
+    background: whitesmoke;
+    border-radius: 50%;
+}
