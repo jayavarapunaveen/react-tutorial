@@ -28,3 +28,36 @@
     background: whitesmoke;
     border-radius: 50%;
 }
+
+.app-title{
+    width: 50%;
+}
+.app-options{
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+.options-list{
+    list-style: none;
+    padding: 0 17px;
+    border-left: 5px solid #00aff0;
+    background-color: #fff;
+    box-shadow: 5px 5px 0 rgb(0 0 0 / 25%);
+    color: black;
+    position: relative;    
+    padding: 0;
+    margin: 0;
+}
+.options-list-item{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+    height: 50px;
+}
+.app-options-list .options-list{
+    display: none;
+}
+.app-options-list:hover .options-list{
+    display: block;
+}

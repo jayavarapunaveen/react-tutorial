@@ -41,7 +41,31 @@ class FirstContainer extends React.Component {
 
     render() {
         return (<>
-            <button onClick={this.toggleMenu}>Toggle Menu</button>
+            <div className="app-header">
+                <div className="app-title" onClick={this.toggleMenu}>
+                    Toggle Menu
+                </div>
+                <div className="app-options">
+                    <span>Home</span>
+                    <span className="app-options-list">Service
+
+                        <ol className="options-list">
+                            <li className="options-list-item">1</li>
+                            <li className="options-list-item">2</li>
+                            <li className="options-list-item">3</li>
+                            <li className="options-list-item">4</li>
+                            <li className="options-list-item">5</li>
+                        </ol>
+
+                    </span>
+                    <span>Contact Us</span>
+                    <span>About Us</span>
+                    <span>Help</span>
+
+
+
+                </div>
+            </div>
             <div className={classNames("side-bar", { "show-side-bar": this.state.showMenu })}>
                 {/* <div className={`side-bar ${this.state.showMenu ? "show-side-bar" : ""}`}> */}
                 <p>Hello this is naveen</p>
